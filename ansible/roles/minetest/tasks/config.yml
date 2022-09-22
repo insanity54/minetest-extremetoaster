@@ -1,0 +1,11 @@
+---
+
+- name: install minetest.conf
+  template:
+    src: minetest.conf.j2
+    dest: /etc/minetest/minetest.conf
+    owner: root
+    group: root
+    mode: '0644'
+  notify:
+    - restart minetest

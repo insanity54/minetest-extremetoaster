@@ -1,0 +1,9 @@
+---
+
+roles:
+  - insanity54.base
+  - nautik1.minetest
+  - nvjacobo.caddy
+
+collections:
+  - ngine_io.vultr

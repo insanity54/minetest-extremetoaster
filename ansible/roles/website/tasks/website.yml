@@ -1,0 +1,64 @@
+---
+
+  - name: build website
+    ansible.builtin.command:
+      cmd: yarn run build
+    args:
+      chdir: ../website/
+      creates: ../website/dist
+    delegate_to: localhost
+
+  - name: Create /var/www
+    ansible.builtin.file:
+      path: /var/www
+      state: directory
+      owner: caddy
+      group: caddy
+      mode: '0755'
+
+  - name: Configure caddy
+    ansible.builtin.template:
+      src: Caddyfile.j2
+      dest: /etc/caddy/Caddyfile
+      owner: root
+      group: root
+      mode: '0755'
+    notify: restart caddy
+
+  - name: create a tar.gz of the website
+    community.general.archive:
+      path: ../website/dist/
+      dest: /tmp/extremetoaster-website.tar.gz
+      format: gz
+    delegate_to: localhost
+
+  - name: copy website to mt server
+    ansible.builtin.unarchive:
+      src: /tmp/extremetoaster-website.tar.gz
+      dest: /var/www
+      owner: root
+      group: root
+      mode: '0755'
+      remote_src: false
+    notify: reload caddy
+
+  - name: ensure correct webroot permissions
+    ansible.builtin.file:
+      path: /var/www
+      recurse: yes
+      state: directory
+      mode: '0755'
+      owner: caddy
+      group: caddy
+
+  - name: open firewall ports for http
+    community.general.ufw:
+      rule: allow
+      port: 80
+      proto: tcp
+
+  - name: open firewall ports for https
+    community.general.ufw:
+      rule: allow
+      port: 443
+      proto: tcp

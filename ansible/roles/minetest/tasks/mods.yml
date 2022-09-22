@@ -1,0 +1,39 @@
+---
+
+# - debug:
+#     msg: "{{ item.split('/') | last }}"
+#   with_items: "{{ mods }}"
+#   delegate_to: localhost
+
+# - meta: end_play
+
+- name: create mods dir
+  ansible.builtin.file:
+    state: directory
+    path: /home/minetest/.minetest/mods
+    mode: '0755'
+
+
+
+- name: download mods
+  ansible.builtin.unarchive:
+    remote_src: yes
+    # url: "https://content.minetest.net/packages/{{ item }}/download/"
+    src: "{{ 'https://content.minetest.net/packages/' ~ item | urlencode ~ '/download/' }}"
+    dest: /home/minetest/.minetest/mods
+    mode: '0755'
+  with_items: "{{ mods }}"
+  tags:
+    - download
+
+- name: enable mods in the world config
+  ansible.builtin.template:
+    src: world.mt.j2
+    dest: /home/minetest/.minetest/worlds/world/world.mt
+    owner: minetest
+    group: minetest
+    mode: '0644'
+
+
+
+# @todo future improvement -- delete mod folders which are no longer used

@@ -1,0 +1,13 @@
+{
+  "name": "minetest-extremetoaster",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Chris Grimmett <chris@grimtech.net>",
+  "license": "Unlicense",
+  "private": true,
+  "workspaces": {
+    "website": "./website",
+    "ansible": "./ansible",
+    "minetest": "./minetest"
+  }
+}

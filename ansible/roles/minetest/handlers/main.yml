@@ -1,0 +1,15 @@
+---
+
+- name: restart minetest
+  ansible.builtin.systemd:
+    name: minetest
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
+
+- name: restart matterbridge
+  ansible.builtin.systemd:
+    name: matterbridge
+    state: restarted
+    enabled: yes
+    daemon_reload: yes

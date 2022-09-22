@@ -1,0 +1,33 @@
+[api.minetest]
+BindAddress="127.0.0.1:4242"
+Buffer=1000
+RemoteNickFormat="[Matrix] <{NICK}>"
+
+
+[matrix.extremetoaster]
+
+Server="https://matrix.org"
+
+Login="{{ matterbridge_bot_username }}"
+Password="{{ matterbridge_bot_password }}"
+
+RemoteNickFormat="[Minetest] <{NICK}> "
+
+#Whether to send the homeserver suffix. eg ":matrix.org" in @username:matrix.org
+#to other bridges, or only send "username".(true only sends username)
+#OPTIONAL (default false)
+NoHomeServerSuffix=false
+
+
+
+[[gateway]]
+name="default"
+enable=true
+
+[[gateway.inout]]
+account="matrix.extremetoaster"
+channel="#extremetoaster:matrix.org"
+
+[[gateway.inout]]
+account="api.minetest"
+channel="api"

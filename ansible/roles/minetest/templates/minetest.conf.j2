@@ -1,0 +1,46 @@
+server_name = EXTREME TOASTER
+server_description = We have guns
+server_address = extremetoaster.com
+server_url = https://extremetoaster.com
+server_annouce = true
+serverlist_url = servers.minetest.net
+motd = Check out extremetoaster.com for our Matrix channel
+#bind_address = 0.0.0.0
+port = 30000
+name = CJ_Clippy
+max_users = 15
+strict_protocol_version_checking = false
+
+#    Specifies URL from which client fetches media instead of using UDP.
+#    $filename should be accessible from $remote_media$filename via cURL
+#    (obviously, remote_media should end with a slash).
+#    Files that are not present will be fetched the usual way.
+#    type: string
+# remote_media =
+
+#    Enable/disable running an IPv6 server.
+#    Ignored if bind_address is set.
+#    Needs enable_ipv6 to be enabled.
+#    type: bool
+ipv6_server = true
+
+## Server Security
+
+disallow_empty_password = true
+
+#    The privileges that new users automatically get.
+#    See /privs in game for a full list on your server and mod configuration.
+#    type: string
+default_privs = interact, shout
+
+#    Privileges that players with basic_privs can grant
+#    type: string
+basic_privs = interact, shout
+
+disable_anticheat = false
+enable_rollback_recording = true
+
+public_serverlist = true
+server_announce = true
+
+give_initial_stuff = rangedweapons:9mm 1000, rangedweapons:glock17 1

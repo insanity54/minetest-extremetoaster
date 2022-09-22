@@ -1,0 +1,10 @@
+---
+
+
+- include_tasks: config.yml
+
+- include_tasks: mods.yml
+  tags: mods
+
+- include_tasks: matterbridge.yml
+  tags: matterbridge

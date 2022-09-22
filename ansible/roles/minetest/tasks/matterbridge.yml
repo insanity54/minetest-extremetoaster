@@ -1,0 +1,49 @@
+---
+
+
+- name: create matterbridge group
+  ansible.builtin.group:
+    name: matterbridge
+
+- name: Create the matterbridge user
+  ansible.builtin.user:
+    name: matterbridge
+    groups: matterbridge
+    create_home: yes
+    home: /home/matterbridge
+
+- name: dl matterbridge
+  get_url:
+    url: https://github.com/42wim/matterbridge/releases/download/v1.25.2/matterbridge-1.25.2-linux-64bit
+    dest: /usr/local/bin/matterbridge
+    mode: '0755'
+
+- name: add yl_matterbridge to minetest.conf
+  lineinfile:
+    path: /etc/minetest/minetest.conf
+    line: secure.http_mods = yl_matterbridge
+    state: present
+  notify:
+    - restart minetest
+    - restart matterbridge
+
+- name: configure matterbridge
+  ansible.builtin.template:
+    src: matterbridge.toml.j2
+    dest: /home/matterbridge/matterbridge.toml
+    owner: matterbridge
+    group: matterbridge
+    mode: '0600'
+  notify:
+    - restart minetest
+    - restart matterbridge
+
+- name: install matterbridge as system service
+  ansible.builtin.template:
+    src: matterbridge.service.j2
+    dest: /etc/systemd/system/matterbridge.service
+    owner: root
+    group: root
+    mode: '0755'
+  notify: 
+    - restart matterbridge

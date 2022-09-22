@@ -1,0 +1,15 @@
+AliasAlreadyTaken/yl_matterbridge
+j8r/entity_modifier
+TenPlus1/mobs
+TenPlus1/mobs_monster
+TenPlus1/ethereal
+TenPlus1/dmobs
+FreeLikeGNU/goblins
+FreeLikeGNU/witches
+FreeBSD/public_inventory
+Linuxdirk/hunger_ng
+davidthecreator/rangedweapons
+jp/i3
+ShadowNinja/areas
+niwla23/vote_day
+kaeza/xban2

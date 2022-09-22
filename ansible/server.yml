@@ -1,0 +1,50 @@
+---
+
+
+
+- hosts: minetest
+  gather_facts: yes
+  vars:
+    - mods: "{{ lookup('file', '../data/mods.txt').split('\n') }}"
+    - ansible_user: root
+    - minetest_version: "5.6.0-ppa0~ubuntu20.04.1"
+    - server_name: extremetoaster.com
+    - server_description: "Extremetoaster.com"
+    - admin_username: CJ_Clippy
+    - matterbridge_bot_username: "{{ lookup('env', 'MATTERBRIDGE_BOT_USERNAME') }}"
+    - matterbridge_bot_password: "{{ lookup('env', 'MATTERBRIDGE_BOT_PASSWORD') }}"
+  roles:
+    - role: insanity54.base 
+      tags: 
+        - base
+
+    - role: firewall 
+      tags: 
+        - firewall
+
+    - role: website
+      tags: 
+        - website
+
+    - role: nvjacobo.caddy 
+      tags: 
+        - caddy
+        
+    - role: nautik1.minetest 
+      tags: 
+        - minetest
+
+    - role: minetest
+      tags:
+        - minetest
+        - mods
+        - matterbridge
+
+  tasks:
+
+    - name: open firewall ports for minetest
+      community.general.ufw:
+        rule: allow
+        port: 30000
+        proto: udp
+      tags: minetest
