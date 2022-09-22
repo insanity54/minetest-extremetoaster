@@ -7,7 +7,6 @@
   "private": true,
   "workspaces": {
     "website": "./website",
-    "ansible": "./ansible",
-    "minetest": "./minetest"
+    "ansible": "./ansible"
   }
 }
